@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Message;
 use App\Models\User;
+use App\Events\SendMessage;
 
 class MessageController extends Controller
 {
@@ -38,6 +39,7 @@ class MessageController extends Controller
         $response = [
           'message' => 'message created successfully',
         ];
+        event(new SendMessage('hello world!'));
         return response($response, 201);
     }
 
@@ -57,6 +59,17 @@ class MessageController extends Controller
         ]);
         $response = [
           'message' => 'edit message was successful'
+        ];
+        return response($response, 200);
+    }
+
+    public function destroy(Message $message)
+    {
+        $this->authorize('delete', $message);
+
+        $message->delete();
+        $response = [
+            'message' => 'delete message was successful'
         ];
         return response($response, 200);
     }

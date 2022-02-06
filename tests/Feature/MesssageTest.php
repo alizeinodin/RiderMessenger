@@ -5,6 +5,7 @@
     use App\Models\Message;
     use App\Models\User;
     use Illuminate\Foundation\Testing\RefreshDatabase;
+    use Illuminate\Support\Facades\URL;
     use Laravel\Sanctum\Sanctum;
     use Tests\TestCase;
 
@@ -38,22 +39,25 @@
         public function test_user_must_be_authenticated_for_use_message()
         {
             $data = [];
-            $response = $this->get(route('messages.index'));
-            $response->assertStatus(302); // redirect to login page // 302
+            $response = $this->get(route('messages.index')); // for read
+            $response->assertStatus(302);
 
-            $response = $this->postJson(route('messages.store'), $data);
-            $response->assertStatus(401); // access denied // 401
+            $response = $this->postJson(route('messages.store'), $data); // for write
+            $response->assertStatus(401);
 
             $message = Message::factory()->make();
 
-            $response = $this->putJson("api/messages/{$message}", $data);
-            $response->assertStatus(401); // access denied // 401
+            $response = $this->putJson("api/messages/{$message}", $data); // for update
+            $response->assertStatus(401);
+
+            $response = $this->deleteJson("api/messages/{$message}"); // for delete
+            $response->assertStatus(401);
         }
 
         public function test_send_message()
         {
             $response = $this->sendMessage($this->makeUser());
-            $response->assertStatus(201); // 201
+            $response->assertStatus(201);
         }
 
         public function test_get_messages()
@@ -61,7 +65,7 @@
             $this->actingAsUser();
 
             $response = $this->get(route('messages.index'));
-            $response->assertStatus(200); // 200
+            $response->assertStatus(200);
         }
 
         public function test_user_must_be_update_own_message()
@@ -91,5 +95,27 @@
             $response->assertStatus(200); // 200
             $messages = Message::where('user_id', auth()->id())->get();
             $this->assertEquals('edit message', $messages->last()->content);
+        }
+
+        public function test_users_must_be_delete_own_messages()
+        {
+            $user = $this->makeUser();
+            $this->sendMessage($user);
+            $messages = auth()->user()->messages;
+
+            $this->actingAsUser();
+
+            $response = $this->deleteJson(route('messages.destroy', ['message' => $messages->last()]));
+            $response->assertStatus(403);
+        }
+
+        public function test_delete_message()
+        {
+            $user = $this->makeUser();
+            $this->sendMessage($user);
+            $messages = auth()->user()->messages;
+
+            $response = $this->deleteJson(route('messages.destroy', ['message' => $messages->last()]));
+            $response->assertStatus(200);
         }
     }
