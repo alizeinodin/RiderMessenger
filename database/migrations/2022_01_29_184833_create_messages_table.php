@@ -20,6 +20,11 @@ class CreateMessagesTable extends Migration
             $table->foreign('user_id')->references('id')
                 ->on('users')->onDelete('cascade');
             // ----------------------
+            // one to many relationship
+            $table->integer('room_id')->unsigned();
+            $table->foreign('room_id')->references('id')
+                ->on('rooms')->onDelete('cascade');
+            // ----------------------
             $table->longText('content');
             $table->timestamps();
         });
