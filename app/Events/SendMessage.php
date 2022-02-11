@@ -5,10 +5,11 @@ namespace App\Events;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class SendMessage implements ShouldBroadcastNow
+class SendMessage implements ShouldBroadcastNow, ShouldQueue
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     public $message;
