@@ -39,13 +39,13 @@ class MessageController extends Controller
         $response = [
           'message' => 'message created successfully',
         ];
-        event(new SendMessage('hello world!'));
+        event(new SendMessage($message->content));
         return response($response, 201);
     }
 
     public function show(Message $message)
     {
-
+        return response($message, 200);
     }
 
     /**

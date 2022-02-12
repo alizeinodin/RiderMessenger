@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RoomController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MessageController;
@@ -19,6 +20,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::middleware(['auth:sanctum'])->group(function(){
-    Route::resource('messages', MessageController::class)->except('create');
+
+    Route::resource('messages', MessageController::class)->except([
+        'create',
+        'edit'
+    ]);
+
+    Route::resource('rooms', RoomController::class)->except([
+        'create',
+        'update',
+        'edit'
+    ]);
 });
 
