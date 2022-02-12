@@ -10,10 +10,16 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Room extends Model
 {
     use HasFactory;
+    protected $guarded = [];
 
     public function anonymousMessages(): HasMany
     {
         return $this->hasMany(AnonymousMessage::class);
+    }
+
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class);
     }
 
     public function user(): BelongsTo

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Database\Factories\UserFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,7 +16,8 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         $this->call([
-          PermissionSeeder::class,
+//            UserFactory::class,
+            RoomSeeder::class,
         ]);
     }
 }

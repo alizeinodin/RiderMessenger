@@ -15,7 +15,6 @@ class CreateRoomsTable extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
-            $table->string('link');
             // one to many relationship
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')

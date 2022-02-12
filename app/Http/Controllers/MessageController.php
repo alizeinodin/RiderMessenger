@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Room;
 use Illuminate\Http\Request;
 use App\Models\Message;
 use App\Models\User;
@@ -35,10 +36,17 @@ class MessageController extends Controller
     public function store(Request $request)
     {
         $user = auth()->user();
-        $message = $user->messages()->create(['content' => $request->input('content')]);
+        $room = Room::find($request['room_id'] ?? 1);
+
+        $message = $user->messages()->create([
+            'content' => $request->input('content'),
+            'room_id' => $room->id
+        ]);
+
         $response = [
           'message' => 'message created successfully',
         ];
+
         event(new SendMessage($message->content));
         return response($response, 201);
     }
@@ -57,6 +65,7 @@ class MessageController extends Controller
         $message->update([
            'content' => $request->input('content'),
         ]);
+
         $response = [
           'message' => 'edit message was successful'
         ];

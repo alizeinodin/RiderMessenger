@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth')->only('index', 'store');
+    }
+
     /**
      * return all rooms of user
      *
@@ -20,14 +26,21 @@ class RoomController extends Controller
 
     public function show(Room $room)
     {
-        return response($room, 200);
+        $messages = $room->messages;
+        $anonymousMessages = $room->anonymousMessages;
+
+        $response = [
+            'messages' => $messages,
+            'anonymous_messages' => $anonymousMessages,
+            'room' => $room
+        ];
+
+        return response($response, 200);
     }
 
     public function store(Request $request)
     {
-        $room = auth()->user()->rooms()->create([
-            'link' => $request['name']
-        ]);
+        $room = auth()->user()->rooms()->create();
 
         $response = [
             'message' => 'room created successfully',
@@ -36,8 +49,13 @@ class RoomController extends Controller
         return response($response, 201);
     }
 
-    public function destory(Room $room)
+    /**
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function destroy(Room $room)
     {
+        $this->authorize('delete', $room);
+
         $room->delete();
 
         $response = [

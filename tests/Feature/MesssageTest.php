@@ -3,6 +3,7 @@
     namespace Tests\Feature;
 
     use App\Models\Message;
+    use App\Models\Room;
     use App\Models\User;
     use Illuminate\Foundation\Testing\RefreshDatabase;
     use Illuminate\Support\Facades\URL;
@@ -12,6 +13,11 @@
     class MesssageTest extends TestCase
     {
         use RefreshDatabase;
+
+        private function makeMainRoom()
+        {
+            Room::factory()->create();
+        }
 
         private function actingAsUser()
         {
@@ -29,6 +35,7 @@
         private function sendMessage($user)
         {
             Sanctum::actingAs($user);
+            $this->makeMainRoom();
 
             $data = [
                 'content' => 'Test Message'
