@@ -10,7 +10,7 @@ class RoomController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth')->only('index', 'store');
+        $this->middleware('auth')->except('show');
     }
 
     /**

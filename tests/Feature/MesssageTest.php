@@ -13,11 +13,6 @@ class MesssageTest extends TestCase
 {
     use RefreshDatabase;
 
-    private function makeMainRoom()
-    {
-        Room::factory()->create();
-    }
-
     private function actingAsUser()
     {
         $user = User::factory()->create();
@@ -26,12 +21,17 @@ class MesssageTest extends TestCase
         return $user;
     }
 
+    private function makeMainRoom()
+    {
+        Room::factory()->create();
+    }
+
     private function makeUser()
     {
         return User::factory()->create();
     }
 
-    private function sendMessage($user)
+    private function sendMessage($user): \Illuminate\Testing\TestResponse
     {
         Sanctum::actingAs($user);
         $this->makeMainRoom();
