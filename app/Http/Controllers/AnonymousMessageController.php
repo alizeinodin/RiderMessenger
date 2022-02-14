@@ -31,6 +31,11 @@ class AnonymousMessageController extends Controller
         return response($response, 201);
     }
 
+    /**
+     * @param AnonymousMessage $message
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
     public function show(AnonymousMessage $message)
     {
         $response = [
@@ -41,11 +46,15 @@ class AnonymousMessageController extends Controller
     }
 
     /**
+     * @param AnonymousMessage $message
+     * @param Request $request
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(AnonymousMessage $message, Request $request)
     {
-        $this->authorize('update', $message);
+        $this->authorize('update', $message, $request);
         $message->update([
             'content' => $request->input('content'),
         ]);
@@ -56,6 +65,12 @@ class AnonymousMessageController extends Controller
         return response($response, 200);
     }
 
+    /**
+     * @param AnonymousMessage $message
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function destroy(AnonymousMessage $message)
     {
         $this->authorize('delete', $message->room);
