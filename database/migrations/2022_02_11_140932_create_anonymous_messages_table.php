@@ -18,7 +18,9 @@ class CreateAnonymousMessagesTable extends Migration
             // one to many relationship
             $table->integer('room_id')->unsigned();
             $table->foreign('room_id')->references('id')
-                ->on('rooms')->onDelete('cascade');
+                ->on('rooms')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             // ----------------------
             $table->ipAddress('ip');
             $table->timestamps();
