@@ -9,6 +9,14 @@ class AnonymousMessage extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'content',
+        'ip'
+    ];
+    protected $hidden = [
+        'ip',
+    ];
+
     public function room(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Room::class);

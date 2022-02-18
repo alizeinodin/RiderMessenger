@@ -22,6 +22,7 @@ class CreateAnonymousMessagesTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             // ----------------------
+            $table->longText('content');
             $table->ipAddress('ip');
             $table->timestamps();
         });

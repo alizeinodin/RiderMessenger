@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\SendMessage;
 use App\Models\AnonymousMessage;
+use App\Models\Room;
 use Illuminate\Http\Request;
 
 class AnonymousMessageController extends Controller
@@ -15,12 +16,11 @@ class AnonymousMessageController extends Controller
      */
     public function store(Request $request)
     {
-        $room = Room::find($request['room_id']);
+        $room = Room::find($request->input('room_id'));
 
-        $message = AnonymousMessage::create([
+        $message = $room->anonymousMessages()->create([
             'content' => $request->input('content'),
             'ip' => $request->ip(),
-            'room_id' => $room->id
         ]);
 
         $response = [
@@ -38,6 +38,8 @@ class AnonymousMessageController extends Controller
      */
     public function show(AnonymousMessage $message)
     {
+        $this->authorize('show', $message);
+
         $response = [
           'message' => $message,
           'room' => $message->room

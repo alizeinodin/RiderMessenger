@@ -26,6 +26,19 @@ class AnonymousMessagePolicy
     }
 
     /**
+     * show anonymous message policy
+     *
+     * @param User $user
+     * @param AnonymousMessage $message
+     *
+     * @return bool
+     */
+    public function show(User $user, AnonymousMessage $message): bool
+    {
+        return $message->room->user_id == $user->id;
+    }
+
+    /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
