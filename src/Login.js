@@ -1,5 +1,5 @@
 import React from "react"
-import axios from "axios";
+import Axios from "./axios";
 import {
     BrowserRouter as Router,
     Routes,
@@ -17,9 +17,9 @@ class Login extends React.Component{
         event.preventDefault()
         this.setState(state=>{const user={email:this.element.value,password: this.element1.value};
         return user;})
-        // axios.post("",this.state.user)
-        //     .then(res=>{console.log(res)})
-        //     .catch(res=>{console.log(res)})
+        Axios.post("",this.state.user)
+            .then(res=>{console.log(res)})
+            .catch(res=>{console.log(res)})
     }
     render() {
         return(

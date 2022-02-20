@@ -6,6 +6,6 @@ Axios.defaults.withCredentials = true;
 
 export default Axios;
 
-// Axios.get('/sanctum/csrf-cookie').then( (res => {
-//     console.log(res);
-// }))
+Axios.get('/sanctum/csrf-cookie').then( (res => {
+    console.log(res);
+}))

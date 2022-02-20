@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+import Axios from "./axios";
 import {
     BrowserRouter as Router,
     Routes,
@@ -17,9 +17,9 @@ class Register extends React.Component{
         event.preventDefault()
         this.setState(state=>{const user={name:this.element.value,email:this.element1.value,password: this.element2.value};
             return user;})
-        // axios.post("",this.state.user)
-        //     .then(res=>{console.log(res)})
-        //     .catch(res=>{console.log(res)})
+        Axios.post("",this.state.user)
+            .then(res=>{console.log(res)})
+            .catch(res=>{console.log(res)})
     }
     render() {
         return(
