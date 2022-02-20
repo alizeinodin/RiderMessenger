@@ -1,5 +1,7 @@
 import React from "react"
 import Axios from "./axios";
+import history from './history';
+
 import {
     BrowserRouter as Router,
     Routes,
@@ -14,18 +16,19 @@ class Login extends React.Component{
     }
     handleSubmit(event)
     {
-        event.preventDefault()
-        this.setState(state=>{const user={email:this.element.value,password: this.element1.value};
-        return user;})
-        Axios.post("",this.state.user)
-            .then(res=>{console.log(res)})
-            .catch(res=>{console.log(res)})
+         history.push("/Room");
+//        event.preventDefault()
+//        this.setState(state=>{const user={email:this.element.value,password: this.element1.value};
+//        return user;})
+//        Axios.post("",this.state.user)
+//            .then(res=>{console.log(res)})
+//            .catch(res=>{console.log(res)})
     }
     render() {
         return(
             <div className="Login">
 
-                        <ul>
+                        <ul className="Nav">
                               <li><Link to="/Login">Login</Link></li>
                             <li><Link to="/Register">Register</Link></li>
                         </ul>
