@@ -1,0 +1,74 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+    
+}
+.Login{
+   background-image: linear-gradient(to right top, #7986cb, #6d7ac5, #626fbf, #5663b9, #4a58b3, #5960b7, #6669bc, #7372c0, #9893d0, #bbb6e0, #dddaef, #ffffff);
+    display: grid;
+   grid-template-columns: repeat(11, auto); 
+    height: 713px;
+}
+
+.Nav{
+    height:60px;
+/*    background-color: #3F51B5;*/
+    display: flex;
+    flex-direction: row;
+  justify-content: flex-end;
+    grid-column: 1 / 12;
+  grid-row: 1;
+/* box-shadow: 3px 8px 16px #888888;*/
+    
+}
+li {
+    padding-right: 15px;
+    padding-top: 15px;
+    margin-left: 15px;
+    list-style: none;
+    text-align: center;
+}
+
+li :hover{
+    
+   background-color: #5C6BC0;
+}
+.link{
+    text-decoration: none;
+     color: #1A237E;
+}
+.Login-form
+{
+    display: flex;
+    flex-direction: column;
+  background: rgba( 255, 255, 255, 0.35 );
+box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+backdrop-filter: blur( 5px );
+-webkit-backdrop-filter: blur( 3px );
+border-radius: 10px;
+border: 1px solid rgba( 255, 255, 255, 0.18 );
+    align-items: center;
+    
+    margin-top: 20px;
+    grid-column: 6/7;
+    height: 390px;
+    border-radius: 8px;
+    border: none;
+    
+}
+input , button{
+    
+   margin-top:45px;
+    width: 270px;
+    height: 35px;
+    border-radius: 5px;
+    border:0;
+   background-color: rgba(255,255,255,0.2);
+      
+}
+input:focus{
+   outline: none;
+    border: 2px solid #3399FF;
+}

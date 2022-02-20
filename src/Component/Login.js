@@ -1,6 +1,7 @@
 import React from "react"
 import Axios from "./axios";
 import history from './history';
+import './Login.css';
 
 import {
     BrowserRouter as Router,
@@ -29,13 +30,13 @@ class Login extends React.Component{
             <div className="Login">
 
                         <ul className="Nav">
-                              <li><Link to="/Login">Login</Link></li>
-                            <li><Link to="/Register">Register</Link></li>
+                              <li><Link className="link" to="/Login">Login</Link></li>
+                            <li><Link className="link"to="/Register">Register</Link></li>
                         </ul>
 
             <form  className="Login-form" action="" onSubmit={this.handleSubmit}>
-                <input  className="Login-email" type="email" placeholder="Email" ref={el => this.element = el}/>
-                <input className="Login-password" type="password" placeholder="Password" ref={el => this.element1 = el}/>
+                <input  className="Login-email" type="email" placeholder="  Email" ref={el => this.element = el}/>
+                <input className="Login-password" type="password" placeholder=" Password" ref={el => this.element1 = el}/>
                 <button  className="Login-button" type="submit">Login</button>
             </form>
             </div>
