@@ -14,8 +14,8 @@ class ConverstionItem extends React.Component{
     {
         return(
             <div className="ConverstionItem">
-            <img className="Avatar" src="#" alt="avatar"/>
-            <p className="Name">asma</p> </div>
+            <img className="Avatar" src={this.props.Avatar} alt="avatar"/>
+            <p className="Name">{this.props.Name}</p> </div>
         );
     }
 }
